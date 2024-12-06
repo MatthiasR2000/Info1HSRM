@@ -11,7 +11,8 @@ double mittelwert(int numbersArray[], int length);
 bool palindromCheck(string palindrom);
 void printStringArray(string stringArray[], int length);
 void fillArrayWithText(string stringArray[], int length);
-
+int rekursion(int y);
+int fakultaet(int n);
 
 int main() {
 
@@ -63,6 +64,9 @@ int main() {
 			cout << "\nDas Angegebene Wort ist Palindrom? 1/0 -> true/false: " << palindromCheck(palindrom) << endl;
 			break;
 		case 3:
+			cout << rekursion(7) << endl;
+			cout << "Fakultaet rekursiv: " << fakultaet(3) << endl;
+
 			break;
 		default:
 			cout << "\nFalsche Eingabe!\n" << endl;
@@ -148,5 +152,28 @@ void fillArrayWithText(string stringArray[], int length) {
 	printStringArray(stringArray, length);
 }
 //Funktionen die Rekursion benutzen
+int rekursion(int y) {
+	if (y >= 100) {
+		return y;  // Rekursion stoppt, wenn y >= 100
+	}
+	else if (y + y > 100) {
+		return y;
+	}
+	else {
+		return rekursion(y + y);  // Verdoppeln und rekursiv weiter aufrufen
+	}
+}
+
+int fakultaet(int n) {
+	// Basisfall: wenn n gleich 0 ist, ist die Fakultät 1
+	if (n == 0) {
+		return 1;
+	}
+	else {
+		// Rekursiver Fall: n! = n * (n - 1)!
+		return n * fakultaet(n - 1);
+	}
+}
+
 //Funktionen die Pointer benutzen
 //Funktionen die alles auf einmal benutzen
