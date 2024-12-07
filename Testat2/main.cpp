@@ -1,5 +1,7 @@
 #include <iostream>
 #include <array>
+#include <string>
+
 using namespace std;
 
 //Funktionen werden deklariert damit er bei Runtime weiß dass es Sie gibt
@@ -13,12 +15,13 @@ void printStringArray(string stringArray[], int length);
 void fillArrayWithText(string stringArray[], int length);
 int rekursion(int y);
 int fakultaet(int n);
+void sortArray(int numbersArray[],const int length);
 
 int main() {
 
 	const int length = 5;
 	int numberArray[length];
-	int numberArray2[5] = { 1,2,3,4,5 };
+	int numberArray2[length] = { 1,2,3,4,5 };
 	string stringArray[5];
 	string palindrom;
 
@@ -56,6 +59,7 @@ int main() {
 			cout << "\nGroesste Nummer im Array ist: " << biggestNumber(numberArray, length) << endl;
 			cout << "Kleinste Zahl im Array ist: " << smallestNumber(numberArray, length) << endl;
 			cout << "Mittelwert des Arrays: " << mittelwert(numberArray, length) << endl;
+			sortArray(numberArray, length);
 			break;
 		case 2:
 			fillArrayWithText(stringArray, length);
@@ -122,6 +126,26 @@ double mittelwert(int numbersArray[], int length) {
 	}
 	return mittelwert = summe / length;
 }
+void sortArray(int numbersArray[], const int length) {
+	cout << "\nArray sortieren" << endl;
+	printArray(numbersArray, length); 
+	cout << endl;
+	for (int i = 0; i < length - 1; i++) {
+		int minIndex = i; // Annahme: Der aktuelle Index hat das kleinste Element
+		for (int j = i + 1; j < length; j++) {
+			if (numbersArray[j] < numbersArray[minIndex]) {
+				minIndex = j; // Index des kleineren Elements speichern
+			}
+		}
+		// Tausch des kleinsten Elements mit dem Element an Position i
+		int temp = numbersArray[i];
+		numbersArray[i] = numbersArray[minIndex];
+		numbersArray[minIndex] = temp;
+	}
+	for (int i = 0; i < length; i++) {
+		cout << numbersArray[i] << " ";
+	}
+}
 
 //Funktionen die Primär mit Strings arbeiten
 
@@ -145,10 +169,14 @@ void fillArrayWithText(string stringArray[], int length) {
 	int counter = 0;
 	do {
 		cout << "Geben Sie ein Wort an: ";
-		cin >> eingabe;                 
-		stringArray[counter] = eingabe; 
+		if (counter == 0) {
+			cin.ignore(); // Eingabepuffer nur beim ersten Mal bereinigen
+		}
+		getline(cin, eingabe); // Nutze getline für die Eingabe
+		stringArray[counter] = eingabe;
 		counter++;
-	} while (counter < length); 
+	} while (counter < length);
+
 	printStringArray(stringArray, length);
 }
 //Funktionen die Rekursion benutzen
@@ -174,6 +202,6 @@ int fakultaet(int n) {
 		return n * fakultaet(n - 1);
 	}
 }
-
+//Structs + Funktionen
 //Funktionen die Pointer benutzen
 //Funktionen die alles auf einmal benutzen
