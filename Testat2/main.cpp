@@ -1,30 +1,25 @@
 #include <iostream>
 #include <array>
 #include <string>
+#include "Structs.hpp"
+#include "Array.hpp"
+#include "Strings.hpp"
+#include "Rekursion.hpp"
 
 using namespace std;
 
-//Funktionen werden deklariert damit er bei Runtime weiß dass es Sie gibt
-void printArray(int numbersArray[], int length);
-void fillArray(int numbersArray[]);
-int biggestNumber(int numbersArray[], int length);
-int smallestNumber(int numbersArray[], int length);
-double mittelwert(int numbersArray[], int length);
-bool palindromCheck(string palindrom);
-void printStringArray(string stringArray[], int length);
-void fillArrayWithText(string stringArray[], int length);
-int rekursion(int y);
-int fakultaet(int n);
-void sortArray(int numbersArray[],const int length);
+/*
+Funktionen werden deklariert damit er bei Runtime weiß dass es Sie gibt
+Der Eigentliche Code ist in den Header Dateien weil es sonst zu unübersichtlich wird
+*/
+
+void mainArrayBefehle();
+void mainStringBefehle();
+void mainRekursionBefehle();
+void mainStructBefehle();
+void mainPointerBefehle();
 
 int main() {
-
-	const int length = 5;
-	int numberArray[length];
-	int numberArray2[length] = { 1,2,3,4,5 };
-	string stringArray[5];
-	string palindrom;
-
 	int eingabe = 0;
 	while (true) {
 		cout << "\n=====================================\n"
@@ -47,30 +42,19 @@ int main() {
 			return 0;
 			break;
 		case 1:
-			//printArray(numberArray, length); Kein Wert initialisiert also kommen random Werte die im Speicher liegen
-			fillArray(numberArray);
-			cout << "\nNormale For Schleife: ";
-			printArray(numberArray, length);
-			cout << "\nFor each Schleife: ";
-			for (int number : numberArray2) {
-				cout << number << " ";
-			}
-			cout << endl;
-			cout << "\nGroesste Nummer im Array ist: " << biggestNumber(numberArray, length) << endl;
-			cout << "Kleinste Zahl im Array ist: " << smallestNumber(numberArray, length) << endl;
-			cout << "Mittelwert des Arrays: " << mittelwert(numberArray, length) << endl;
-			sortArray(numberArray, length);
+			mainArrayBefehle();
 			break;
 		case 2:
-			fillArrayWithText(stringArray, length);
-			cout << "\nGeben sie ein Palindrom zum Beisppiel otto an: ";
-			cin >> palindrom;
-			cout << "\nDas Angegebene Wort ist Palindrom? 1/0 -> true/false: " << palindromCheck(palindrom) << endl;
+			mainStringBefehle();
 			break;
 		case 3:
-			cout << rekursion(7) << endl;
-			cout << "Fakultaet rekursiv: " << fakultaet(3) << endl;
-
+			mainRekursionBefehle();
+			break;
+		case 4:
+			mainStructBefehle();
+			break;
+		case 5:
+			mainPointerBefehle();
 			break;
 		default:
 			cout << "\nFalsche Eingabe!\n" << endl;
@@ -83,125 +67,70 @@ int main() {
 //Initialisierung der Funktionen
 
 //Funktionen die die Basics über Arrays vermitteln
+void mainArrayBefehle() {
 
-void printArray(int numbersArray[], int length) {
-	for (int i = 0; i < length; i++) {
-		cout << numbersArray[i] << " ";
+	const int length = 5;
+	int numberArray[length];
+	int numberArray2[length] = { 1,2,3,4,5 };
+	//printArray(numberArray, length); Kein Wert initialisiert also kommen random Werte die im Speicher liegen
+	fillArray(numberArray);
+	cout << "\nNormale For Schleife: ";
+	printArray(numberArray, length);
+	cout << "\nFor each Schleife: ";
+	for (int number : numberArray2) {
+		cout << number << " ";
 	}
-}
-
-void fillArray(int numbersArray[]) {
-	int eingabe;
-	for (int i = 0; i < 5; i++) {
-		cout << "Geben sie eine Zahl ein: ";
-		cin >> numbersArray[i];
-	}
-}
-
-int biggestNumber(int numbersArray[], int length) {
-	int maxNumber = numbersArray[0];
-	for (int i = 0; i < length; i++) {
-		if (numbersArray[i] > maxNumber) {
-			maxNumber = numbersArray[i];
-		}
-	}
-	return maxNumber;
-}
-
-int smallestNumber(int numbersArray[], int length) {
-	int smallestNumber = numbersArray[0];
-	for (int i = 0; i < length; i++) {
-		if (numbersArray[i] < smallestNumber) {
-			smallestNumber = numbersArray[i];
-		}
-	}
-	return smallestNumber;
-}
-
-double mittelwert(int numbersArray[], int length) {
-	double mittelwert = 0;
-	int summe = 0;
-	for (int i = 0; i < length; i++) {
-		summe += i;
-	}
-	return mittelwert = summe / length;
-}
-void sortArray(int numbersArray[], const int length) {
-	cout << "\nArray sortieren" << endl;
-	printArray(numbersArray, length); 
 	cout << endl;
-	for (int i = 0; i < length - 1; i++) {
-		int minIndex = i; // Annahme: Der aktuelle Index hat das kleinste Element
-		for (int j = i + 1; j < length; j++) {
-			if (numbersArray[j] < numbersArray[minIndex]) {
-				minIndex = j; // Index des kleineren Elements speichern
-			}
-		}
-		// Tausch des kleinsten Elements mit dem Element an Position i
-		int temp = numbersArray[i];
-		numbersArray[i] = numbersArray[minIndex];
-		numbersArray[minIndex] = temp;
-	}
-	for (int i = 0; i < length; i++) {
-		cout << numbersArray[i] << " ";
-	}
+	cout << "\nGroesste Nummer im Array ist: " << biggestNumber(numberArray, length) << endl;
+	cout << "Kleinste Zahl im Array ist: " << smallestNumber(numberArray, length) << endl;
+	cout << "Mittelwert des Arrays: " << mittelwert(numberArray, length) << endl;
+	sortArray(numberArray, length);
 }
 
-//Funktionen die Primär mit Strings arbeiten
 
-bool palindromCheck(std::string palindrom) {
-	for (int i = 0; i < palindrom.size()/2; i++) {
-		if (palindrom[i] != palindrom[palindrom.size()-i-1]) {
-			return false;
-		}
-	}
-	return true;
+void mainStringBefehle() {
+	string stringArray[5];
+	string palindrom;
+	const int length = 5;
+	fillArrayWithText(stringArray, length);
+	cout << "\nGeben sie ein Palindrom zum Beisppiel otto an: ";
+	cin >> palindrom;
+	cout << "\nDas Angegebene Wort ist Palindrom? 1/0 -> true/false: " << palindromCheck(palindrom) << endl;
 }
 
-void printStringArray(string stringArray[], int length) {
-	for (int i = 0; i < length; i++) {
-		cout << stringArray[i] << endl;
-	}
+void mainRekursionBefehle() {
+	cout << rekursion(7) << endl;
+	cout << "Fakultaet rekursiv: " << fakultaet(3) << endl;
 }
 
-void fillArrayWithText(string stringArray[], int length) {
-	string eingabe;
-	int counter = 0;
-	do {
-		cout << "Geben Sie ein Wort an: ";
-		if (counter == 0) {
-			cin.ignore(); // Eingabepuffer nur beim ersten Mal bereinigen
-		}
-		getline(cin, eingabe); // Nutze getline für die Eingabe
-		stringArray[counter] = eingabe;
-		counter++;
-	} while (counter < length);
+void mainStructBefehle() {
+	const int length = 2;
+	Cat cat2;
+	Cat cat3;
+	Cat cats[length] = { cat2, cat3 };
+	giveMeName(cats, length);
+	Cat cat1 = { "bert",4,"blau" };
+	cout << cat1.name << endl;
+	cout << cat1.alter << endl;
+	cat1.alter = cat1.alter + 1;
+	cout << cat1.alter << endl;
+	printCat(cat1);
+	// Array von Person-Strukturen
+	Person1 people[3] = {
+		{"Alice", 30, Montag},
+		{"Bob", 25, Freitag},
+		{"Charlie", 35, Sonntag}
+	};
 
-	printStringArray(stringArray, length);
-}
-//Funktionen die Rekursion benutzen
-int rekursion(int y) {
-	if (y >= 100) {
-		return y;  // Rekursion stoppt, wenn y >= 100
+	// Ausgabe der Informationen und des Verhaltens basierend auf dem Lieblingstag
+	for (int i = 0; i < 3; i++) {
+		cout << "Name: " << people[i].name << ", Alter: " << people[i].age << ", Lieblingstag: ";
+		verhaltenBasierendAufWochentag(people[i].lieblingstag);
 	}
-	else if (y + y > 100) {
-		return y;
-	}
-	else {
-		return rekursion(y + y);  // Verdoppeln und rekursiv weiter aufrufen
-	}
+
+	Person einwohner[3] = { {"Alice", {1, 1, 1990}, {"Hauptstrasse", 1, "Berlin", 10115}}, {"Bob", {2, 2, 1985}, {"Nebenstrasse", 2, "Hamburg", 20095}}, {"Charlie", {3, 3, 1975}, {"Ringstrasse", 3, "München", 80331}} }; // Zugriff auf die Stadt des 2. Einwohners cout << "Stadt des 2. Einwohners: " << einwohner[1].wohnort.stadt << endl; // Zugriff auf die Daten des 2. Einwohners Person p = einwohner[1]; Adresse a = p.wohnort; string s = a.stadt; cout << "Stadt des 2. Einwohners (über Variable): " << s <<
 }
 
-int fakultaet(int n) {
-	// Basisfall: wenn n gleich 0 ist, ist die Fakultät 1
-	if (n == 0) {
-		return 1;
-	}
-	else {
-		// Rekursiver Fall: n! = n * (n - 1)!
-		return n * fakultaet(n - 1);
-	}
+void mainPointerBefehle() {
+	cout << "Kommt noch" << endl;
 }
-//Structs + Funktionen
-//Funktionen die Pointer benutzen
-//Funktionen die alles auf einmal benutzen
