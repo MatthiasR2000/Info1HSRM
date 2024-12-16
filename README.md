@@ -1,1 +1,1 @@
-Ist ein Versuch das wichtigste in einem File zu haben
+Ist ein Versuch das wichtigste in einem Projekt zu haben
