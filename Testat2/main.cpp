@@ -96,6 +96,19 @@ void mainStringBefehle() {
 	cout << "\nGeben sie ein Palindrom zum Beisppiel otto an: ";
 	cin >> palindrom;
 	cout << "\nDas Angegebene Wort ist Palindrom? 1/0 -> true/false: " << palindromCheck(palindrom) << endl;
+	/*
+	string stringArray2[length] = { " Hello World", "soso", "Info1so1", "Info1", "osossos" };
+	string test = "nutriscore opfer";
+	string wort = "op";
+	cout << "Ersten fünf Buchstaben: " << stringErste5Buchstaben(test) << endl;
+	cout << "Letzten drei Buchstaben: " << stringLetztenDreiBuchstaben(test) << endl;
+	cout << "Ist " << wort << " im String vorhanden: " << istStringSoEnthalten() << endl;
+	cout << "Funktion ist String im Array?" << endl;
+	istStringImArray(stringArray2, length);
+	cout << endl;
+	cout << "Funktion ist das Wort \"so\" im String?" << istStringSoEnthalten(stringArray2, length) << endl;
+	*/
+	
 }
 
 void mainRekursionBefehle() {
